@@ -8,15 +8,18 @@ addbtn.addEventListener("click", function() {
   if (inputValue !== "") {
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo-item");
-    
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.classList.add("checkbox");
 
     const paragraph = document.createElement("p");
-    paragraph.innerHTML = inputValue;
+    paragraph.textContent = inputValue;
     paragraph.classList.add("paragraph");
+
+    const editbtn = document.createElement("button");
+    editbtn.innerHTML = "Edit";
+    editbtn.classList.add("editbtn");
 
     const deletebtn = document.createElement("button");
     deletebtn.innerHTML = "Delete";
@@ -24,8 +27,9 @@ addbtn.addEventListener("click", function() {
 
     todoItem.appendChild(checkbox);
     todoItem.appendChild(paragraph);
+    todoItem.appendChild(editbtn);
     todoItem.appendChild(deletebtn);
-    
+
     container.appendChild(todoItem);
 
     todoinput.value = "";
@@ -40,6 +44,35 @@ addbtn.addEventListener("click", function() {
 
     deletebtn.addEventListener("click", function() {
       container.removeChild(todoItem);
+    });
+
+    editbtn.addEventListener("click", function() {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.value = paragraph.textContent;
+      input.classList.add("input");
+
+      const updateText = function() {
+        const updatedText = input.value.trim();
+        if (updatedText !== "") {
+          paragraph.textContent = updatedText;
+        }
+
+        input.replaceWith(paragraph);
+      };
+
+      input.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          updateText();
+        }
+      });
+
+      input.addEventListener("blur", function() {
+        updateText();
+      });
+
+      paragraph.replaceWith(input);
+      input.focus();
     });
   }
 });
