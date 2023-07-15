@@ -2,7 +2,7 @@ const addbtn = document.getElementById("addtodo");
 const container = document.querySelector(".container");
 const todoinput = document.getElementById("todoinput");
 
-addbtn.addEventListener("click", function() {
+addbtn.addEventListener("click", function () {
   const inputValue = todoinput.value.trim();
 
   if (inputValue !== "") {
@@ -18,12 +18,10 @@ addbtn.addEventListener("click", function() {
     paragraph.classList.add("paragraph");
 
     const editbtn = document.createElement("button");
-    editbtn.innerHTML = "Edit";
-    editbtn.classList.add("editbtn");
+    editbtn.classList.add("editbtn", "fa", "fa-solid", "fa-pen-to-square");
 
     const deletebtn = document.createElement("button");
-    deletebtn.innerHTML = "Delete";
-    deletebtn.classList.add("deletebtn");
+    deletebtn.classList.add("deletebtn", "fa-solid", "fa-trash");
 
     todoItem.appendChild(checkbox);
     todoItem.appendChild(paragraph);
@@ -34,7 +32,7 @@ addbtn.addEventListener("click", function() {
 
     todoinput.value = "";
 
-    checkbox.addEventListener("change", function() {
+    checkbox.addEventListener("change", function () {
       if (checkbox.checked) {
         paragraph.style.textDecoration = "line-through";
       } else {
@@ -42,17 +40,17 @@ addbtn.addEventListener("click", function() {
       }
     });
 
-    deletebtn.addEventListener("click", function() {
+    deletebtn.addEventListener("click", function () {
       container.removeChild(todoItem);
     });
 
-    editbtn.addEventListener("click", function() {
+    editbtn.addEventListener("click", function () {
       const input = document.createElement("input");
       input.type = "text";
       input.value = paragraph.textContent;
       input.classList.add("input");
 
-      const updateText = function() {
+      const updateText = function () {
         const updatedText = input.value.trim();
         if (updatedText !== "") {
           paragraph.textContent = updatedText;
@@ -61,13 +59,13 @@ addbtn.addEventListener("click", function() {
         input.replaceWith(paragraph);
       };
 
-      input.addEventListener("keypress", function(e) {
+      input.addEventListener("keypress", function (e) {
         if (e.key === "Enter") {
           updateText();
         }
       });
 
-      input.addEventListener("blur", function() {
+      input.addEventListener("blur", function () {
         updateText();
       });
 
